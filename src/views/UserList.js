@@ -9,14 +9,17 @@ Icon.loadFont()
 
 export default props => {
 
-  const { state } = useContext(UsersContext)
+  const { state, dispatch } = useContext(UsersContext)
 
   function confirmUserDelete(item){
     Alert.alert('Excluir usuário', 'Deseja excluir este usuário?', [
       {
         text: 'sim',
         onPress(){
-          console.warn('delete', item.nome)
+          dispatch({
+            type: 'deleteUser',
+            payload: item
+          })
         }
       },
       {
