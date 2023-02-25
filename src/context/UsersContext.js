@@ -5,9 +5,25 @@ const initialState = { datas }
 const UsersContext = createContext({})
 
 const actions = {
+    createUser(state, action){
+        const user = action.payload
+        user.id = Math.random()
+        return {
+            ...state,
+            datas: [...state.datas, user]
+        }
+    },
+    updateUser(state, action){
+        const userUpdated = action.payload
+        return {
+            ...state,
+            datas: state.datas.map(user => user.id === userUpdated.id ? userUpdated : user)
+        }
+    },
     deleteUser(state, action){
         const data = action.payload
         return {
+            ...state,
             datas: state.datas.filter(user => user.id !== data.id)
         }
     }
