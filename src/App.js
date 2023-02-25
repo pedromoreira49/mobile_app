@@ -6,6 +6,7 @@ import { Button } from '@rneui/themed'
 import UserList from './views/UserList'
 import UserForm from './views/UserForm'
 import Icon from 'react-native-vector-icons/Ionicons'
+import { UsersProvider } from './context/UsersContext'
 
 const Stack = createNativeStackNavigator()
 
@@ -13,37 +14,39 @@ Icon.loadFont()
 
 export default props => {
     return(
-        <NavigationContainer>
-            <Stack.Navigator
-                initialRouteName='UserList'
-                screenOptions={screenOptions}
-            >
-                <Stack.Screen 
-                    name='UserList'
-                    component={UserList}
-                    options={({ navigation }) => {
-                        return {
-                            title: "Lista de Usuários",
-                            headerRight: () => (
-                                <Button 
-                                    onPress={() => navigation.navigate('UserForm')}
-                                    type='clear'
-                                    icon={icon}
-                                    
-                                />
-                            )
-                        }
-                    }}
-                />
-                <Stack.Screen 
-                    name='UserForm'
-                    component={UserForm}
-                    options={{
-                        title: "Formulário de Usuários"
-                    }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <UsersProvider>
+            <NavigationContainer>
+                <Stack.Navigator
+                    initialRouteName='UserList'
+                    screenOptions={screenOptions}
+                >
+                    <Stack.Screen 
+                        name='UserList'
+                        component={UserList}
+                        options={({ navigation }) => {
+                            return {
+                                title: "Lista de Usuários",
+                                headerRight: () => (
+                                    <Button 
+                                        onPress={() => navigation.navigate('UserForm')}
+                                        type='clear'
+                                        icon={icon}
+                                        
+                                    />
+                                )
+                            }
+                        }}
+                    />
+                    <Stack.Screen 
+                        name='UserForm'
+                        component={UserForm}
+                        options={{
+                            title: "Formulário de Usuários"
+                        }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </UsersProvider>
     )
 }
 
